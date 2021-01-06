@@ -1,13 +1,20 @@
 package org.example;
 
-import java.io.*;
+import org.junit.Test;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Hello world!
- *
+ * Unit test for simple App.
  */
 public class TokenBucket {
     // 默认桶容量 即最大瞬时流量是64MB
@@ -36,7 +43,8 @@ public class TokenBucket {
     private ReentrantLock lock = new ReentrantLock(true);
     private static final byte A_CHAR = 'a';
 
-    public TokenBucket(){}
+    public TokenBucket() {
+    }
 
     public TokenBucket(int maxFlowRate, int avgFlowRate) {
         this.maxFlowRate = maxFlowRate;
@@ -76,7 +84,7 @@ public class TokenBucket {
                 }
             }
             return tokenCount == needTokenNum;
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -149,7 +157,8 @@ public class TokenBucket {
         }
     }
 
-    private static void tokenTest() throws IOException, InterruptedException {
+    @Test
+    private void tokenTest() throws IOException, InterruptedException {
         TokenBucket tokenBucket = TokenBucket.newBuilder().avgFlowRate(512).maxFlowRate(1024).build();
         BufferedWriter bufferedWriter = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream("/Users/facedamon/Desktop/t.txt"))
@@ -173,9 +182,5 @@ public class TokenBucket {
         }
         bufferedWriter.close();
         tokenBucket.stop();
-    }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-        tokenTest();
     }
 }

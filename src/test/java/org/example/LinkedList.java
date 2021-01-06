@@ -1,5 +1,7 @@
 package org.example;
 
+import org.junit.Test;
+
 import java.util.Iterator;
 
 public class LinkedList<Item> implements Iterable<Item> {
@@ -90,7 +92,8 @@ public class LinkedList<Item> implements Iterable<Item> {
         return new LinkedListIterator();
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void test() {
         LinkedList<Integer> linkedList = new LinkedList<Integer>();
         linkedList.push(1);
         linkedList.push(4);

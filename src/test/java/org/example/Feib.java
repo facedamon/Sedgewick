@@ -1,5 +1,7 @@
 package org.example;
 
+import org.junit.Test;
+
 public class Feib {
     public static void main(String[] args) {
         try {
@@ -44,6 +46,16 @@ public class Feib {
         return fk;
     }
 
+    @Test
+    public void test2() {
+        try {
+            System.out.println(getFeib2(8));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     /**
      * 使用递归实现，效率低
      *
@@ -57,5 +69,15 @@ public class Feib {
             return 1;
         }
         return getFeib(i - 1) + getFeib(i - 2);
+    }
+
+    @Test
+    public void test1() {
+        try {
+            System.out.println(getFeib(8));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
